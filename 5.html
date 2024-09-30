@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Imperátrice - Exclusividade e Elegância</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: #000;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .logo {
+            flex-grow: 1;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #666;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        /* Slider */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide1 {
+            background-image: url('https://i.imgur.com/TOeYdeB.jpeg');
+        }
+
+        .slide2 {
+            background-image: url('https://i.imgur.com/AY3qjbo.jpeg');
+        }
+
+        .slide3 {
+            background-image: url('https://i.imgur.com/trgOk9X.jpeg');
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 15px 30px;
+            background-color: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #666;
+            transform: scale(1.1);
+        }
+
+        .about {
+            padding: 100px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.2em;
+            color: #000;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Seção de Produtos */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 100px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .product {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .product:nth-child(1) { animation-delay: 0.2s; }
+        .product:nth-child(2) { animation-delay: 0.4s; }
+        .product:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product h3 {
+            font-size: 1.7em;
+            margin: 15px 0;
+            color: #000;
+        }
+
+        .product p {
+            color: #000;
+        }
+
+        .buy-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Seção Testemunhos */
+        .testimonials {
+            padding: 100px 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #000;
+        }
+
+        .testimonial {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-style: italic;
+        }
+
+        .testimonial p {
+            margin-bottom: 20px;
+        }
+
+        .testimonial .author {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Botão flutuante de contato */
+        .contact-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 123, 255, 0.8); /* Azul mais discreto */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+        }
+
+        .contact-button:hover {
+            background-color: rgba(0, 123, 255, 1);
+            transform: scale(1.1);
+        }
+
+        .contact-button i {
+            font-size: 24px; /* Tamanho do ícone */
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #f5f5f5;
+            padding: 50px 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            color: #000;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: #fff;
+                border: 1px solid #000;
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu.show {
+                display: block;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">Imperátrice</div>
+        <div class="menu-icon">&#9776;</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="slider">
+    <div class="slides">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+    </div>
+</div>
+
+<!-- Seção Produtos -->
+<section class="products">
+    <div class="product">
+        <img src="https://i.imgur.com/TOeYdeB.jpeg" alt="Produto 1">
+        <h3>Produto 1</h3>
+        <p>Descrição do produto 1.</p>
+        <a href="#" class="buy-button">Comprar</a>
+    </div>
+    <div class="product">
+        <img src="https://i.imgur.com/AY3qjbo.jpeg" alt="Produto 2">
+        <h3>Produto 2</h3>
+        <p>Descrição do produto 2.</p>
+        <a href="#" class="buy-button">Comprar</a>
+    </div>
+    <div class="product">
+        <img src="https://i.imgur.com/trgOk9X.jpeg" alt="Produto 3">
+        <h3>Produto 3</h3>
+        <p>Descrição do produto 3.</p>
+        <a href="#" class="buy-button">Comprar</a>
+    </div>
+</section>
+
+<!-- Seção O Que Dizem Nossos Clientes -->
+<section class="testimonials">
+    <h2>O Que Dizem Nossos Clientes</h2>
+    <div class="testimonial">
+        <p>"A Imperátrice superou todas as minhas expectativas. Produtos de alta qualidade e atendimento impecável!"</p>
+        <div class="author">- Maria Souza</div>
+    </div>
+    <div class="testimonial">
+        <p>"Estou encantado com a experiência de compra! Com certeza voltarei a comprar."</p>
+        <div class="author">- João Pereira</div>
+    </div>
+    <div class="testimonial">
+        <p>"Os produtos são maravilhosos e chegam super rápido. Muito satisfeita!"</p>
+        <div class="author">- Carla Lima</div>
+    </div>
+</section>
+
+<!-- Botão flutuante de contato -->
+<button class="contact-button"><i class="fas fa-phone-alt"></i></button>
+
+<!-- Rodapé -->
+<footer>
+    <p>&copy; 2024 Imperátrice. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    const menuIcon = document.querySelector('.menu-icon');
+    const menu = document.querySelector('nav ul');
+
+    menuIcon.addEventListener('click', () => {
+        menu.classList.toggle('show');
+    });
+</script>
+
+</body>
+</html>
