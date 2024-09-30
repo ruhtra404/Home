@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Consultas de Tarot - Agende Sua Leitura</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1rem;
+        }
+        /* Estilos do menu */
+        nav {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: relative;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav ul li {
+            margin: 10px 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 10px;
+        }
+        nav ul li a:hover {
+            background-color: #444;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+        }
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #FFFFFF; /* Cor dos risquinhos em branco */
+            margin: 5px 0;
+        }
+        /* Estilos da seção de consulta */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .cta-button {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            background-color: #444;
+        }
+        .consulta-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 30px 0;
+        }
+        .consulta-section h2 {
+            font-size: 2.5rem;
+            color: #000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .consulta-section p {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .consulta-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .consulta-option {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .consulta-option:hover {
+            transform: translateY(-5px);
+        }
+        .consulta-option h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .consulta-option p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .consulta-option img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .consulta-option img:hover {
+            transform: scale(1.1);
+        }
+        .duration-buttons {
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        .duration-buttons button {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+        .duration-buttons button:hover {
+            background-color: #444;
+        }
+        /* Botão de contato */
+        #contact-button {
+            background-color: light blue; /* Azul claro*/
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%; /* Botão redondo */
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed; /* Fixa na tela */
+            right: 20px;
+            bottom: 20px;
+            width: 60px; /* Tamanho do botão */
+            height: 60px; /* Tamanho do botão */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #contact-button:hover {
+            background-color: #0056b3;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                background-color: #000;
+                padding: 20px;
+                width: 100%;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .consulta-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            .consulta-option {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        /* Menu alinhado lado a lado na versão desktop */
+        @media (min-width: 769px) {
+            nav ul {
+                flex-direction: row;
+            }
+            nav ul li {
+                margin: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Consultas com Tarólogos de Confiança</h1>
+        <p>Escolha seu pacote de consulta e agende sua leitura personalizada</p>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <nav>
+        <ul id="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="consulta-section">
+            <h2>Escolha o Tipo de Consulta</h2>
+            <p>Oferecemos pacotes de consulta para atender às suas necessidades. Selecione o mais adequado para você!</p>
+
+            <div class="consulta-options">
+                <div class="consulta-option" id="tarologo1" onclick="showButtons('buttons1')">
+                    <img src="https://i.imgur.com/6nnoer5.jpeg" alt="Tarólogo 1">
+                    <h3>Tarólogo 1</h3>
+                    <p>Especialista em leituras objetivas e rápidas.</p>
+                    <div class="duration-buttons" id="buttons1">
+                        <button onclick="openPaymentLink('tarologo1', '30min')">30 Minutos</button>
+                        <button onclick="openPaymentLink('tarologo1', '60min')">60 Minutos</button>
+                    </div>
+                </div>
+
+                <div class="consulta-option" id="tarologo2" onclick="showButtons('buttons2')">
+                    <img src="https://i.imgur.com/XQ5YQnf.jpeg" alt="Taróloga 2">
+                    <h3>Taróloga 2</h3>
+                    <p>Conselhos profundos para sua vida amorosa.</p>
+                    <div class="duration-buttons" id="buttons2">
+                        <button onclick="openPaymentLink('tarologo2', '30min')">30 Minutos</button>
+                        <button onclick="openPaymentLink('tarologo2', '60min')">60 Minutos</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão de contato -->
+        <a id="contact-button" href="tel:+5511999999999">💬</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+
+        function showButtons(buttonId) {
+            var buttons = document.getElementById(buttonId);
+            buttons.style.display = buttons.style.display === "none" || buttons.style.display === "" ? "block" : "none";
+        }
+
+        function openPaymentLink(tarologo, duration) {
+            var link = "https://pagamento.com/" + tarologo + "/" + duration;
+            window.open(link, "_blank");
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Imperátrice - Produtos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #000;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #666;
+        }
+
+        /* Barra de pesquisa com espaçamento para não ser tampada */
+        .search-bar {
+            margin: calc(130px + 15px) auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60%;
+            max-width: 800px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007BFF;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Produtos */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 30px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .product {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        .product h3 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .buy-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Descrição do Produto */
+        .product-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .product-detail-content {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        .product-detail h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .product-detail img {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            margin-bottom: 10px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* Galeria de Imagens */
+        .image-gallery {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .image-gallery img {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 80%;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Imperátrice</div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produto</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Barra de Pesquisa -->
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar produtos...">
+    <button onclick="searchProducts()">Buscar</button>
+</div>
+
+<!-- Seção Produtos -->
+<section class="products" id="productList">
+    <div class="product" data-product="Produto 1">
+        <img src="https://i.imgur.com/TOeYdeB.jpeg" alt="Produto 1" onclick="openProductDetail('Produto 1', ['https://i.imgur.com/TOeYdeB.jpeg', 'https://i.imgur.com/AY3qjbo.jpeg'], 'Descrição do produto 1')">
+        <h3 onclick="openProductDetail('Produto 1', ['https://i.imgur.com/TOeYdeB.jpeg', 'https://i.imgur.com/AY3qjbo.jpeg'], 'Descrição do produto 1')">Produto 1</h3>
+        <p>Descrição do produto 1.</p>
+        <a href="#" class="buy-button">Comprar</a>
+    </div>
+    <div class="product" data-product="Produto 2">
+        <img src="https://i.imgur.com/AY3qjbo.jpeg" alt="Produto 2" onclick="openProductDetail('Produto 2', ['https://i.imgur.com/AY3qjbo.jpeg'], 'Descrição do produto 2')">
+        <h3 onclick="openProductDetail('Produto 2', ['https://i.imgur.com/AY3qjbo.jpeg'], 'Descrição do produto 2')">Produto 2</h3>
+        <p>Descrição do produto 2.</p>
+        <a href="#" class="buy-button">Comprar</a>
+    </div>
+</section>
+
+<!-- Detalhes do Produto -->
+<div class="product-detail" id="productDetail">
+    <div class="product-detail-content">
+        <button class="close-button" onclick="closeProductDetail()">&times;</button>
+        <h3 id="detailTitle">Detalhes do Produto</h3>
+        <img id="detailImage" src="" alt="Imagem do Produto">
+        <div class="image-gallery" id="imageGallery"></div>
+        <p id="detailDescription">Descrição do produto selecionado.</p>
+    </div>
+</div>
+
+<script>
+    function openProductDetail(title, images, description) {
+        document.getElementById('detailTitle').innerText = title;
+        document.getElementById('detailImage').src = images[0];
+        document.getElementById('detailDescription').innerText = description;
+
+        // Limpar galeria
+        var gallery = document.getElementById('imageGallery');
+        gallery.innerHTML = '';
+
+        // Adicionar imagens à galeria
+        images.forEach(function(image) {
+            var imgElement = document.createElement('img');
+            imgElement.src = image;
+            imgElement.onclick = function() {
+                document.getElementById('detailImage').src = image;
+            };
+            gallery.appendChild(imgElement);
+        });
+
+        document.getElementById('productDetail').style.display = 'flex';
+    }
+
+    function closeProductDetail() {
+        document.getElementById('productDetail').style.display = 'none';
+    }
+
+    // Fechar ao clicar fora do modal
+    window.onclick = function(event) {
+        var modal = document.getElementById('productDetail');
+        if (event.target == modal) {
+            closeProductDetail();
+        }
+    }
+
+    function searchProducts() {
+        var input = document.getElementById('searchInput').value.toLowerCase();
+        var products = document.querySelectorAll('.product');
+
+        products.forEach(function(product) {
+            var productName = product.getAttribute('data-product').toLowerCase();
+            if (productName.includes(input)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
